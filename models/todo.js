@@ -15,23 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
 
+    static getTodos() {
+      return this.findAll({ order: [["id", "ASC"]] });
+    }
+
     markAsCompleted() {
       return this.update({ completed: true });
-    }
-
-    static getTodos() {
-      const todos = Todo.findAll({
-        order: [["id", "ASC"]],
-      });
-      return todos;
-    }
-
-    deleteTodo() {
-      return this.destroy({
-        where: {
-          id: this.id,
-        },
-      });
     }
   }
   Todo.init(
